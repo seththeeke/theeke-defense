@@ -520,7 +520,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onEnemyLeaked(enemy) {
-    this.lives -= enemy.def.livesCost;
+    if (enemy.def.isBoss) {
+      this.lives = 0;
+      this.showMessage('Boss escaped!');
+    } else {
+      this.lives -= enemy.def.livesCost;
+    }
     this.updateHUD();
     if (this.lives <= 0) this.endGame(false);
   }
