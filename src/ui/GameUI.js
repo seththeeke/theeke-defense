@@ -8,6 +8,8 @@ import {
 const MOBILE_BREAKPOINT = '(max-width: 900px)';
 const TOUCH_PLACEMENT = '(hover: none), (pointer: coarse)';
 const DRAG_THRESHOLD = 10;
+const LONG_PRESS_MS = 420;
+const SCROLL_CANCEL_PX = 6;
 
 export class GameUI {
   constructor(config, selection) {
@@ -180,9 +182,23 @@ export class GameUI {
 
     const startX = e.clientX;
     const startY = e.clientY;
+    const scrollContainer = this.shopUnits;
+    const startScrollTop = scrollContainer?.scrollTop ?? 0;
     let dragging = false;
+    let dragEnabled = false;
+    let scrollCancelled = false;
+    let longPressTimer = null;
+
+    const cancelLongPress = () => {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      btn.classList.remove('shop-unit--drag-ready');
+    };
 
     const cleanup = () => {
+      cancelLongPress();
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
       document.removeEventListener('pointercancel', onUp);
@@ -190,17 +206,47 @@ export class GameUI {
       this.activeDrag = null;
     };
 
+    const markScrollCancelled = () => {
+      if (scrollCancelled) return;
+      scrollCancelled = true;
+      cancelLongPress();
+    };
+
     const onMove = (ev) => {
+      if (scrollContainer && Math.abs(scrollContainer.scrollTop - startScrollTop) > 1) {
+        markScrollCancelled();
+        return;
+      }
+
       const dx = ev.clientX - startX;
       const dy = ev.clientY - startY;
-      if (!dragging && Math.hypot(dx, dy) >= DRAG_THRESHOLD) {
+
+      if (!dragEnabled && Math.hypot(dx, dy) >= SCROLL_CANCEL_PX) {
+        markScrollCancelled();
+        return;
+      }
+
+      if (!dragEnabled || dragging) {
+        if (dragging) {
+          ev.preventDefault();
+          this.moveDragGhost(ev.clientX, ev.clientY);
+          this.handlers.onDragPlace?.({
+            phase: 'move',
+            clientX: ev.clientX,
+            clientY: ev.clientY,
+            unit: { type: unit.type, id: unit.def.id, def: unit.def },
+          });
+        }
+        return;
+      }
+
+      if (Math.hypot(dx, dy) >= DRAG_THRESHOLD) {
         dragging = true;
+        btn.classList.remove('shop-unit--drag-ready');
         this.closeShopDrawer();
         this.dragGhost = this.createDragGhost(portraitHtml, unit.def.name);
         this.gameContainer?.classList.add('is-dragging');
         this.handlers.onDragPlace?.({ phase: 'start', unit: { type: unit.type, id: unit.def.id, def: unit.def } });
-      }
-      if (dragging) {
         ev.preventDefault();
         this.moveDragGhost(ev.clientX, ev.clientY);
         this.handlers.onDragPlace?.({
@@ -224,8 +270,17 @@ export class GameUI {
         });
         return;
       }
-      this.selectUnit({ type: unit.type, id: unit.def.id, def: unit.def });
+      if (!scrollCancelled) {
+        this.selectUnit({ type: unit.type, id: unit.def.id, def: unit.def });
+      }
     };
+
+    longPressTimer = setTimeout(() => {
+      if (scrollCancelled) return;
+      dragEnabled = true;
+      btn.classList.add('shop-unit--drag-ready');
+      navigator.vibrate?.(12);
+    }, LONG_PRESS_MS);
 
     this.activeDrag = { unit, btn };
     document.addEventListener('pointermove', onMove);

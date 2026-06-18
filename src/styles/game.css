@@ -732,6 +732,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .shop-unit {
@@ -747,9 +750,15 @@ body {
   text-align: left;
   width: 100%;
   font-family: var(--font);
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.shop-unit--drag-ready {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
 
 .shop-unit:hover:not(.disabled) {
