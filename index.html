@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theeke Defense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/game.css" />
+  </head>
+  <body>
+    <div id="setup-screen" class="screen active">
+      <header class="setup-header">
+        <h1>Theeke Defense</h1>
+        <p class="subtitle">defend all aspects of life</p>
+      </header>
+
+      <section class="setup-section">
+        <h2>Choose your hero</h2>
+        <div id="hero-options" class="card-grid"></div>
+      </section>
+
+      <section class="setup-section">
+        <h2>Choose your track</h2>
+        <div id="track-options" class="card-grid card-grid--tracks"></div>
+      </section>
+
+      <button id="start-game-btn" class="btn btn--primary btn--large" disabled>
+        Start Game
+      </button>
+    </div>
+
+    <div id="game-screen" class="screen">
+      <div id="playfield-column">
+        <div id="hud-bar" class="hud-bar">
+          <div class="hud-stat">
+            <span class="hud-label">Cash</span>
+            <span id="hud-cash" class="hud-value hud-value--cash">$0</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">Lives</span>
+            <span id="hud-lives" class="hud-value hud-value--lives">0</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">Round</span>
+            <span id="hud-round" class="hud-value">0 / 0</span>
+          </div>
+          <div id="hud-message" class="hud-message"></div>
+          <div class="hud-controls">
+            <button id="speed-btn" class="btn btn--ghost btn--sm">1×</button>
+          </div>
+        </div>
+
+        <div id="game-container">
+          <div id="enemy-roster" class="enemy-roster hidden" aria-live="polite">
+            <div class="enemy-roster__label">Threats</div>
+            <ul id="enemy-roster-list" class="enemy-roster__list"></ul>
+          </div>
+        </div>
+
+        <div id="playfield-footer" class="playfield-footer">
+          <div id="selected-unit-panel" class="info-card hidden">
+            <div id="selected-unit-name" class="info-card__title"></div>
+            <div class="info-card__row"><span>Hits</span><span id="selected-unit-hits"></span></div>
+            <div class="info-card__row"><span>Range</span><span id="selected-unit-range"></span></div>
+          </div>
+          <div id="abilities-panel" class="abilities-panel">
+            <span class="abilities-label">Abilities</span>
+            <div id="ability-buttons"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="round-toolbar" class="round-toolbar">
+        <label class="auto-start-option">
+          <input type="checkbox" id="auto-start-round" />
+          <span>Auto-start next round</span>
+        </label>
+        <div class="round-toolbar__actions">
+          <button id="sell-btn" class="btn btn--danger btn--sm">Sell Tower</button>
+          <button id="start-round-btn" class="btn btn--primary btn--sm">Start Round</button>
+          <button
+            id="shop-drawer-toggle"
+            class="shop-drawer-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="shop-panel"
+          >
+            Towers
+          </button>
+        </div>
+      </div>
+
+      <div id="shop-drawer-backdrop" class="shop-drawer-backdrop hidden" aria-hidden="true"></div>
+
+      <aside id="shop-panel" class="shop-panel">
+        <div class="shop-panel__header">
+          <h2 class="shop-panel__title">Towers</h2>
+          <button
+            type="button"
+            id="shop-drawer-close"
+            class="shop-drawer-close"
+            aria-label="Close towers"
+          >
+            ×
+          </button>
+        </div>
+        <div id="shop-units" class="shop-units"></div>
+      </aside>
+
+      <div id="game-over-modal" class="modal hidden">
+        <div class="modal__card">
+          <h2 id="game-over-title"></h2>
+          <p id="game-over-subtitle">Click anywhere to return to setup</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

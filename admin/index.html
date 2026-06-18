@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theeke Defense — Admin</title>
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Theeke Defense — Config Admin</h1>
+      <div class="header-actions">
+        <button id="btn-save">Save to localStorage</button>
+        <button id="btn-export">Export JSON</button>
+        <button id="btn-import">Import JSON</button>
+        <input type="file" id="file-import" accept=".json" hidden />
+        <button id="btn-reset">Reset to Defaults</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="constants">Constants</button>
+      <button class="tab" data-tab="profiles">Profiles</button>
+      <button class="tab" data-tab="track-enemies">Track Skins</button>
+      <button class="tab" data-tab="towers">Towers</button>
+      <button class="tab" data-tab="heroes">Heroes</button>
+      <button class="tab" data-tab="waves">Waves</button>
+    </nav>
+
+    <main>
+      <section id="tab-constants" class="tab-panel active"></section>
+      <section id="tab-profiles" class="tab-panel"></section>
+      <section id="tab-track-enemies" class="tab-panel"></section>
+      <section id="tab-towers" class="tab-panel"></section>
+      <section id="tab-heroes" class="tab-panel"></section>
+      <section id="tab-waves" class="tab-panel">
+        <div id="waves-list-view"></div>
+        <div id="waves-detail-view" class="hidden"></div>
+      </section>
+    </main>
+
+    <div id="status"></div>
+    <script type="module" src="/admin/admin.js"></script>
+  </body>
+</html>

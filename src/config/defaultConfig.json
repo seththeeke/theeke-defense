@@ -1,0 +1,955 @@
+{
+  "gameConstants": {
+    "startingCash": 500,
+    "startingLives": 20,
+    "roundScalingFactor": 0.05,
+    "roundCompletionBonus": 75,
+    "gridCellSize": 48,
+    "playfieldScale": 4,
+    "totalRounds": 10
+  },
+  "enemyProfiles": {
+    "basic": {
+      "id": "basic",
+      "label": "Basic",
+      "speed": 55,
+      "health": 40,
+      "cashReward": 8,
+      "livesCost": 1,
+      "healRate": 0,
+      "immuneToTowerAbilities": false,
+      "isBoss": false
+    },
+    "slow-powerhouse": {
+      "id": "slow-powerhouse",
+      "label": "Slow Powerhouse",
+      "speed": 35,
+      "health": 90,
+      "cashReward": 12,
+      "livesCost": 1,
+      "healRate": 0,
+      "immuneToTowerAbilities": false,
+      "isBoss": false
+    },
+    "speedy-weakling": {
+      "id": "speedy-weakling",
+      "label": "Speedy Weakling",
+      "speed": 85,
+      "health": 22,
+      "cashReward": 6,
+      "livesCost": 1,
+      "healRate": 0,
+      "immuneToTowerAbilities": false,
+      "isBoss": false
+    },
+    "healing": {
+      "id": "healing",
+      "label": "Healing Enemy",
+      "speed": 40,
+      "health": 45,
+      "cashReward": 14,
+      "livesCost": 1,
+      "healRate": 4,
+      "immuneToTowerAbilities": false,
+      "isBoss": false
+    },
+    "strong-speed": {
+      "id": "strong-speed",
+      "label": "Strong Speed",
+      "speed": 75,
+      "health": 42,
+      "cashReward": 10,
+      "livesCost": 1,
+      "healRate": 0,
+      "immuneToTowerAbilities": false,
+      "isBoss": false
+    },
+    "ability-immune": {
+      "id": "ability-immune",
+      "label": "Ability Immune",
+      "speed": 50,
+      "health": 80,
+      "cashReward": 16,
+      "livesCost": 1,
+      "healRate": 0,
+      "immuneToTowerAbilities": true,
+      "isBoss": false
+    },
+    "boss": {
+      "id": "boss",
+      "label": "Boss",
+      "speed": 45,
+      "health": 350,
+      "cashReward": 80,
+      "livesCost": 3,
+      "healRate": 0,
+      "immuneToTowerAbilities": false,
+      "isBoss": true
+    }
+  },
+  "trackEnemies": {
+    "amazon-office": {
+      "basic": {
+        "name": "Meeting",
+        "color": "#4a6fa5"
+      },
+      "slow-powerhouse": {
+        "name": "Boss Ping",
+        "color": "#2c3e6b"
+      },
+      "speedy-weakling": {
+        "name": "Slack Ping",
+        "color": "#7b9fd4"
+      },
+      "healing": {
+        "name": "WBR Bridge",
+        "color": "#5b8a72"
+      },
+      "strong-speed": {
+        "name": "Project Blocker",
+        "color": "#c97b2e"
+      },
+      "ability-immune": {
+        "name": "VP Escalation",
+        "color": "#8b2942"
+      },
+      "boss": {
+        "name": "Performance Improvement Plan",
+        "color": "#1a1a2e"
+      }
+    },
+    "broadway": {
+      "basic": {
+        "name": "Vomit on the street",
+        "color": "#7cb342"
+      },
+      "slow-powerhouse": {
+        "name": "Bridesmaid",
+        "color": "#e91e8c"
+      },
+      "speedy-weakling": {
+        "name": "Jello Shot",
+        "color": "#ff6f00"
+      },
+      "healing": {
+        "name": "Drunk Homeless Person",
+        "color": "#8d6e63"
+      },
+      "strong-speed": {
+        "name": "One more Drink",
+        "color": "#ab47bc"
+      },
+      "ability-immune": {
+        "name": "Ms Kellies Karaoke",
+        "color": "#f06292"
+      },
+      "boss": {
+        "name": "Hangover",
+        "color": "#37474f"
+      }
+    },
+    "theeke-house": {
+      "basic": {
+        "name": "Dog Poop on Floor",
+        "color": "#8d6e3f"
+      },
+      "slow-powerhouse": {
+        "name": "Making a Fence",
+        "color": "#6d4c41"
+      },
+      "speedy-weakling": {
+        "name": "Yappy Dog",
+        "color": "#d4a574"
+      },
+      "healing": {
+        "name": "Surprise Chore",
+        "color": "#81c784"
+      },
+      "strong-speed": {
+        "name": "Angry Dad",
+        "color": "#e53935"
+      },
+      "ability-immune": {
+        "name": "Single Parenting",
+        "color": "#5c6bc0"
+      },
+      "boss": {
+        "name": "The In-Laws",
+        "color": "#9b2335"
+      }
+    }
+  },
+  "towers": {
+    "will": {
+      "id": "will",
+      "name": "Will",
+      "blockSize": 1,
+      "gender": "male",
+      "attackSpeed": 0.6,
+      "range": 140,
+      "attackPower": 8,
+      "buffPower": 0.15,
+      "effectMagnitude": 0.3,
+      "effectDuration": 3,
+      "buyCost": 120,
+      "sellValue": 80,
+      "color": "#6c5ce7",
+      "special": "slow-on-hit"
+    },
+    "danielle": {
+      "id": "danielle",
+      "name": "Danielle",
+      "blockSize": 1,
+      "gender": "female",
+      "attackSpeed": 1.2,
+      "range": 130,
+      "attackPower": 15,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 150,
+      "sellValue": 100,
+      "color": "#ff7675",
+      "special": "will-synergy"
+    },
+    "trevor": {
+      "id": "trevor",
+      "name": "Trevor",
+      "blockSize": 1,
+      "gender": "male",
+      "attackSpeed": 0.5,
+      "range": 90,
+      "attackPower": 35,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 180,
+      "sellValue": 120,
+      "color": "#fd79a8",
+      "special": null
+    },
+    "alex": {
+      "id": "alex",
+      "name": "Alex",
+      "blockSize": 1,
+      "gender": "male",
+      "attackSpeed": 0.8,
+      "range": 100,
+      "attackPower": 18,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 160,
+      "sellValue": 105,
+      "color": "#00b894",
+      "special": "chaos-scaling"
+    },
+    "julie": {
+      "id": "julie",
+      "name": "Julie",
+      "blockSize": 1,
+      "gender": "female",
+      "attackSpeed": 1.5,
+      "range": 220,
+      "attackPower": 6,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 140,
+      "sellValue": 90,
+      "color": "#0984e3",
+      "special": "boss-bonus",
+      "bossBonusMultiplier": 3
+    },
+    "liam": {
+      "id": "liam",
+      "name": "Liam",
+      "blockSize": 1,
+      "gender": "male",
+      "attackSpeed": 2,
+      "range": 120,
+      "attackPower": 12,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 130,
+      "sellValue": 85,
+      "color": "#55efc4",
+      "special": null
+    },
+    "haillee": {
+      "id": "haillee",
+      "name": "Haillee",
+      "blockSize": 1,
+      "gender": "female",
+      "attackSpeed": 0.4,
+      "range": 130,
+      "attackPower": 14,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "buyCost": 170,
+      "sellValue": 110,
+      "color": "#ffeaa7",
+      "special": "multi-shot",
+      "projectileCount": 3
+    }
+  },
+  "heroes": {
+    "seth": {
+      "id": "seth",
+      "name": "Seth",
+      "blockSize": 2,
+      "attackSpeed": 0.7,
+      "range": 150,
+      "attackPower": 30,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "accuracy": 1,
+      "color": "#2d3436",
+      "abilities": [
+        {
+          "id": "focus",
+          "name": "Focus",
+          "cooldown": 15,
+          "duration": 0,
+          "effectMagnitude": 5,
+          "description": "Massive damage to strongest enemy"
+        }
+      ]
+    },
+    "lexie": {
+      "id": "lexie",
+      "name": "Lexie",
+      "blockSize": 2,
+      "attackSpeed": 2,
+      "range": 140,
+      "attackPower": 8,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "accuracy": 1,
+      "color": "#fdcb6e",
+      "abilities": [
+        {
+          "id": "sunshine-spin",
+          "name": "Sunshine Spin",
+          "cooldown": 20,
+          "duration": 0,
+          "effectMagnitude": 20,
+          "description": "Damages all enemies on track"
+        }
+      ]
+    },
+    "noli": {
+      "id": "noli",
+      "name": "Noli",
+      "blockSize": 2,
+      "attackSpeed": 1.8,
+      "range": 130,
+      "attackPower": 22,
+      "buffPower": 0,
+      "effectMagnitude": 0,
+      "effectDuration": 0,
+      "accuracy": 0.7,
+      "distractChance": 0.05,
+      "distractDuration": 1.5,
+      "color": "#e17055",
+      "abilities": [
+        {
+          "id": "zoomies",
+          "name": "Zoomies",
+          "cooldown": 25,
+          "duration": 5,
+          "effectMagnitude": 3,
+          "description": "3x attack speed for 5 seconds"
+        }
+      ]
+    },
+    "mikey": {
+      "id": "mikey",
+      "name": "Mikey",
+      "blockSize": 2,
+      "attackSpeed": 1.5,
+      "range": 120,
+      "attackPower": 10,
+      "buffPower": 0.2,
+      "buffRange": 100,
+      "effectMagnitude": 0.4,
+      "effectDuration": 10,
+      "accuracy": 1,
+      "color": "#636e72",
+      "abilities": [
+        {
+          "id": "toxic-breath",
+          "name": "Toxic Breath",
+          "cooldown": 18,
+          "duration": 10,
+          "effectMagnitude": 0.4,
+          "description": "Slow all enemies hit"
+        }
+      ]
+    }
+  },
+  "tracks": {
+    "amazon-office": {
+      "id": "amazon-office",
+      "name": "The Amazon Office",
+      "description": "Easy layout with a couple of turns",
+      "path": [
+        {
+          "x": 0,
+          "y": 300
+        },
+        {
+          "x": 200,
+          "y": 300
+        },
+        {
+          "x": 200,
+          "y": 150
+        },
+        {
+          "x": 500,
+          "y": 150
+        },
+        {
+          "x": 500,
+          "y": 400
+        },
+        {
+          "x": 800,
+          "y": 400
+        }
+      ],
+      "spawnPoints": [
+        {
+          "pathIndex": 0
+        }
+      ],
+      "endPoints": [
+        {
+          "pathIndex": 5
+        }
+      ]
+    },
+    "broadway": {
+      "id": "broadway",
+      "name": "Broadway",
+      "description": "Straight road through the center — tower space on both sides",
+      "playfieldHeight": 400,
+      "path": [
+        { "x": 0, "y": 200 },
+        { "x": 800, "y": 200 }
+      ],
+      "spawnPoints": [
+        {
+          "pathIndex": 0
+        }
+      ],
+      "endPoints": [
+        {
+          "pathIndex": 1
+        }
+      ]
+    },
+    "theeke-house": {
+      "id": "theeke-house",
+      "name": "Theeke House",
+      "description": "Winding path with extra turns across the house",
+      "path": [
+        { "x": 0, "y": 340 },
+        { "x": 160, "y": 340 },
+        { "x": 160, "y": 110 },
+        { "x": 380, "y": 110 },
+        { "x": 380, "y": 390 },
+        { "x": 600, "y": 390 },
+        { "x": 600, "y": 90 },
+        { "x": 860, "y": 90 },
+        { "x": 860, "y": 340 },
+        { "x": 1100, "y": 340 }
+      ],
+      "spawnPoints": [
+        {
+          "pathIndex": 0
+        }
+      ],
+      "endPoints": [
+        {
+          "pathIndex": 9
+        }
+      ]
+    }
+  },
+  "waves": {
+    "amazon-office": [
+      {
+        "round": 1,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 4
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "entries": [
+          {
+            "profileType": "slow-powerhouse",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 3
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "entries": [
+          {
+            "profileType": "healing",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "entries": [
+          {
+            "profileType": "strong-speed",
+            "count": 5
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "entries": [
+          {
+            "profileType": "ability-immune",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "entries": [
+          {
+            "profileType": "boss",
+            "count": 1
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "broadway": [
+      {
+        "round": 1,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 4
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "entries": [
+          {
+            "profileType": "slow-powerhouse",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 3
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "entries": [
+          {
+            "profileType": "healing",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "entries": [
+          {
+            "profileType": "strong-speed",
+            "count": 5
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "entries": [
+          {
+            "profileType": "ability-immune",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "entries": [
+          {
+            "profileType": "boss",
+            "count": 1
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "theeke-house": [
+      {
+        "round": 1,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 4
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "entries": [
+          {
+            "profileType": "slow-powerhouse",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 3
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "entries": [
+          {
+            "profileType": "healing",
+            "count": 4
+          },
+          {
+            "profileType": "basic",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "entries": [
+          {
+            "profileType": "strong-speed",
+            "count": 5
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "entries": [
+          {
+            "profileType": "ability-immune",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "entries": [
+          {
+            "profileType": "basic",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          },
+          {
+            "profileType": "speedy-weakling",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 2
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "entries": [
+          {
+            "profileType": "boss",
+            "count": 1
+          },
+          {
+            "profileType": "ability-immune",
+            "count": 2
+          },
+          {
+            "profileType": "strong-speed",
+            "count": 3
+          },
+          {
+            "profileType": "healing",
+            "count": 2
+          },
+          {
+            "profileType": "slow-powerhouse",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,413 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+  min-height: 100vh;
+}
+
+header {
+  padding: 16px 24px;
+  background: #16213e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+header h1 {
+  font-size: 20px;
+  color: #ffd700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  background: #0f3460;
+  color: #fff;
+}
+
+button:hover {
+  background: #1a4a7a;
+}
+
+#btn-save {
+  background: #2ecc71;
+  color: #000;
+}
+
+#btn-reset {
+  background: #e74c3c;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 24px;
+  background: #0f3460;
+}
+
+.tab {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom-color: #ffd700;
+  color: #ffd700;
+}
+
+main {
+  padding: 16px 24px;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.entity-card {
+  background: #16213e;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.entity-card h3 {
+  color: #ffd700;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #0f3460;
+  color: #fff;
+  font-size: 13px;
+}
+
+.waves-table-wrap {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.waves-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.waves-table th,
+.waves-table td {
+  border: 1px solid #333;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.waves-table th {
+  background: #0f3460;
+  position: sticky;
+  top: 0;
+}
+
+.waves-table textarea {
+  width: 100%;
+  min-height: 40px;
+  background: #0f3460;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 4px;
+}
+
+#status {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  padding: 10px 16px;
+  background: #2ecc71;
+  color: #000;
+  border-radius: 4px;
+  display: none;
+  font-size: 13px;
+}
+
+#status.show {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── Waves editor ── */
+
+.waves-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.waves-toolbar p {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.waves-table tbody tr.wave-row {
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.waves-table tbody tr.wave-row:hover {
+  background: #1a2744;
+}
+
+.waves-table tbody tr.wave-row.active {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.wave-summary {
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.wave-summary__empty {
+  color: #64748b;
+  font-style: italic;
+}
+
+.wave-summary__tag {
+  display: inline-block;
+  background: #0f3460;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin: 1px 4px 1px 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.wave-summary__tag--boss {
+  border-color: #fbbf24;
+  color: #fde68a;
+}
+
+.wave-total {
+  font-weight: 600;
+  color: #f1f5f9;
+  font-variant-numeric: tabular-nums;
+}
+
+.wave-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.wave-detail-header h3 {
+  color: #ffd700;
+  font-size: 18px;
+}
+
+.wave-detail-stats {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.wave-detail-stats strong {
+  color: #f1f5f9;
+}
+
+.wave-enemy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+  max-height: calc(70vh - 80px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.wave-enemy-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #16213e;
+  border: 1px solid #2e3648;
+  border-radius: 8px;
+  padding: 10px 12px;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.wave-enemy-card.in-wave {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.wave-enemy-card__swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wave-enemy-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.wave-enemy-card__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wave-enemy-card__meta {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.wave-enemy-card__badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-right: 4px;
+  background: #0f3460;
+  color: #94a3b8;
+}
+
+.wave-enemy-card__badge--boss {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.wave-counter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.wave-counter button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  background: #0f3460;
+  border: 1px solid #334155;
+}
+
+.wave-counter button:hover:not(:disabled) {
+  background: #1a4a7a;
+  border-color: #6366f1;
+}
+
+.wave-counter button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.wave-counter__value {
+  min-width: 28px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f1f5f9;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-back {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+}
+
+.btn-back:hover {
+  background: #1a2744;
+}
+
+.track-select {
+  display: block;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #f1f5f9;
+  font-size: 14px;
+  min-width: 240px;
+}
+
+.field--full {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+.field--full label {
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wave-enemy-card__profile {
+  font-size: 11px;
+  color: #64748b;
+}
+
