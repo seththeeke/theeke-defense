@@ -1,7 +1,11 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
+/** Must match the GitHub repo name when using project Pages (user.github.io/repo-name/). */
+const base = process.env.VITE_BASE_PATH || '/theeke-defense/';
+
 export default defineConfig({
+  base,
   root: '.',
   publicDir: 'public',
   build: {
@@ -13,6 +17,6 @@ export default defineConfig({
     },
   },
   server: {
-    open: '/',
+    open: base,
   },
 });
